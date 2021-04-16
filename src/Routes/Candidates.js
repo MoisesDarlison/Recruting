@@ -1,5 +1,5 @@
 const routes = require('express')();
-const { index, create } = require('../Controllers/CompaniesController');
+const { index, create } = require('../Controllers/CandidatesController');
 
 routes.get('/', index);
 routes.post('/', create);

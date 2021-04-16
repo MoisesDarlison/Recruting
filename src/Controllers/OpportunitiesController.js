@@ -14,7 +14,6 @@ module.exports = {
         try {
             //companyId coming token
             const { name, description, level, requirements, numberOfJobsOpens, companyId } = req.body;
-
             const opportunity = await Opportunities.create({ name, description, level, requirements, numberOfJobsOpens, companyId });
 
             return res.status(200).json(opportunity);

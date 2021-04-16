@@ -1,22 +1,22 @@
 const connection = require("../config/DB/connection");
 const Sequelize = require('sequelize');
-const Company = require('./Companies');
 
-const Opportunity = connection.define('opportunities', {
+const Candidates = connection.define('candidates', {
+
   name: {
     type: Sequelize.STRING
   },
-  description: {
+  address: {
     type: Sequelize.STRING
   },
-  level: {
+  email: {
     type: Sequelize.STRING
   },
-  requirements: {
+  phone: {
     type: Sequelize.STRING
   },
-  numberOfJobsOpens: {
-    type: Sequelize.INTEGER
+  active: {
+    type: Sequelize.BOOLEAN
   },
   createdAt: {
     allowNull: false,
@@ -30,9 +30,4 @@ const Opportunity = connection.define('opportunities', {
   freezeTableName: true
 });
 
-Company.hasMany(Opportunity, {
-  foreignKey: 'companyId'
-});
-Opportunity.belongsTo(Company);
-
-module.exports = Opportunity;
+module.exports = Candidates;
