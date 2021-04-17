@@ -27,7 +27,7 @@ const Opportunity = connection.define('opportunities', {
     type: Sequelize.DATE
   }
 }, {
-  freezeTableName: true
+  freezeTableName: true,
 });
 
 Company.hasMany(Opportunity, {

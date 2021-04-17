@@ -1,4 +1,5 @@
 const Opportunities = require('../Models/Opportunities');
+const SkillOpportunity = require('../Models/SkillsOpportunities');
 
 module.exports = {
     async index(req, res) {
@@ -17,6 +18,18 @@ module.exports = {
             const opportunity = await Opportunities.create({ name, description, level, requirements, numberOfJobsOpens, companyId });
 
             return res.status(200).json(opportunity);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    },
+    async associateSkill(req, res) {
+        try {
+            const [opportunityId, skillId] = [1, 1];
+
+            const skill = await SkillOpportunity.create({ opportunityId, skillId });
+
+            return res.status(201).json(skill);
+
         } catch (error) {
             return res.status(500).json(error);
         }

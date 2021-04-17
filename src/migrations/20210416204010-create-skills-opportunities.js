@@ -6,14 +6,16 @@ module.exports = {
       skillId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: 'skills',
           key: 'id'
         }
       },
-      opportunityI: {
+      opportunityId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: 'opportunities',
           key: 'id'

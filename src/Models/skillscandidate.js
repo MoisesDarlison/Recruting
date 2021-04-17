@@ -1,24 +1,25 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class skillsCandidate extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
-  };
-  skillsCandidate.init({
-    skillId: DataTypes.STRING,
-    candidateId: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'skillsCandidate',
-  });
-  return skillsCandidate;
-};
+const connection = require("../config/DB/connection");
+const Candidate = require('./Candidates');
+const Skill = require('./Skills');
+
+const SkillCandidate = connection.define('skillsCandidates', {
+
+}, {
+  freezeTableName: true
+});
+
+SkillCandidate.removeAttribute('id');
+
+Candidate.hasMany(SkillCandidate, {
+  foreignKey: 'candidateId'
+});
+
+SkillCandidate.belongsTo(Candidate);
+
+Skill.hasMany(SkillCandidate, {
+  foreignKey: 'skillId'
+});
+
+SkillCandidate.belongsTo(Skill);
+
+module.exports = SkillCandidate;
