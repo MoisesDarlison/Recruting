@@ -1,5 +1,6 @@
 const connection = require("../config/DB/connection");
 const Sequelize = require('sequelize');
+const bcrypt = require('bcrypt');
 
 const Candidates = connection.define('candidates', {
 
@@ -10,6 +11,9 @@ const Candidates = connection.define('candidates', {
     type: Sequelize.STRING
   },
   email: {
+    type: Sequelize.STRING
+  },
+  password: {
     type: Sequelize.STRING
   },
   phone: {
@@ -27,7 +31,14 @@ const Candidates = connection.define('candidates', {
     type: Sequelize.DATE
   }
 }, {
-  freezeTableName: true
+  freezeTableName: true,
+  hooks: {
+    afterValidate: (Candidates, options) => {
+      {
+        Candidates.password = Candidates.password && Candidates.password != "" ? bcrypt.hashSync(Candidates.password, 10) : "";
+      }
+    },
+  }
 });
 
 module.exports = Candidates;

@@ -12,8 +12,8 @@ module.exports = {
     },
     async create(req, res) {
         try {
-            const { name, address, category, email, cnpj } = req.body;
-            const user = await Company.create({ name, address, category, email, cnpj });
+            const { name, address, category, email, password, cnpj } = req.body;
+            const user = await Company.create({ name, address, category, password, email, cnpj });
 
             return res.status(201).json(user);
 
