@@ -1,10 +1,17 @@
-const Opportunities = require('../Models/Opportunities');
+const Opportunity = require('../Models/Opportunities');
+const Company = require('../Models/Companies');
 const SkillOpportunity = require('../Models/SkillsOpportunities');
 
 module.exports = {
     async index(req, res) {
         try {
-            const opportunity = await Opportunities.findAll();
+            const opportunity = await Opportunity.findAll({
+                include: {
+                    model: Company,
+                    attributes: ['name']
+                }
+            });
+
             return res.status(200).json(opportunity);
 
         } catch (error) {
@@ -13,9 +20,11 @@ module.exports = {
     },
     async create(req, res) {
         try {
-            //companyId coming token
-            const { name, description, level, requirements, numberOfJobsOpens, companyId } = req.body;
-            const opportunity = await Opportunities.create({ name, description, level, requirements, numberOfJobsOpens, companyId });
+
+            const companyId = req.userId;
+
+            const { name, description, level, requirements, numberOfJobsOpens } = req.body;
+            const opportunity = await Opportunity.create({ name, description, level, requirements, numberOfJobsOpens, companyId });
 
             return res.status(200).json(opportunity);
         } catch (error) {

@@ -1,8 +1,11 @@
 const routes = require('express')();
-const { index, create } = require('../Controllers/CompaniesController');
 const { verifyJWT } = require('../middleware/Auth');
+const { index, create, filter, update } = require('../Controllers/CompaniesController');
 
-routes.get('/', verifyJWT, index);
 routes.post('/', create);
+routes.get('/:id', verifyJWT, filter);
+//routes.delete('/:id', verifyJWT, destroy);
+routes.put('/:id', verifyJWT, update);
+routes.get('/', verifyJWT, index);
 
 module.exports = routes;

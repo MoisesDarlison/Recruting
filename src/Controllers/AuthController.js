@@ -6,16 +6,16 @@ const { SECRET_JWT } = process.env;
 
 module.exports = {
     async authentication(req, res) {
-        const { name, password } = req.body;
+        const { email, password } = req.body;
         let userSignup;
         try {
             userSignup = await Company.findOne({
-                where: { name: name }, attributes: ['id', 'password'],
+                where: { email }, attributes: ['id', 'password'],
             });
 
             if (!userSignup) {
                 userSignup = await Candidate.findOne({
-                    where: { name: name }, attributes: ['id', 'password'],
+                    where: { email }, attributes: ['id', 'password'],
                 });
             }
 
@@ -29,7 +29,7 @@ module.exports = {
                 return res.status(401).json({ error: 'INVALID PASSWORD' });
             }
 
-            const token = jwt.sign({ userId: userSignup.dataValues.id }, SECRET_JWT, { expiresIn: 3000000 });
+            const token = jwt.sign({ userId: userSignup.dataValues.id }, SECRET_JWT, { expiresIn: 540000 });
             return res.status(200).json({ id: userSignup, token });
 
         } catch (error) {
