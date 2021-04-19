@@ -3,6 +3,7 @@ const Opportunity = require('../Models/Opportunities');
 const { Op } = require("sequelize");
 
 module.exports = {
+
     async index(req, res) {
 
         try {
@@ -39,7 +40,7 @@ module.exports = {
 
             const company = await Company.create({ name, address, category, password, email, cnpj });
 
-            return res.status(201).json({ company });
+            return res.status(201).json(company);
 
         } catch (error) {
             return res.status(500).json(error);
@@ -69,6 +70,7 @@ module.exports = {
             return res.status(500).json(error);
         }
     },
+
     async update(req, res) {
 
         const { userId } = req;

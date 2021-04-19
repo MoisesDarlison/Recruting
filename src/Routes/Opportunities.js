@@ -3,7 +3,7 @@ const { index, create, associateSkill } = require('../Controllers/OpportunitiesC
 const { verifyJWT } = require('../middleware/Auth');
 
 routes.get('/', index);
-routes.post('/skills', verifyJWT, associateSkill);
+routes.post('/:id', verifyJWT, associateSkill);
 routes.post('/', verifyJWT, create);
 
 module.exports = routes;

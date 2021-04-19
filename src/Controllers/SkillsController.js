@@ -13,13 +13,20 @@ module.exports = {
     async create(req, res) {
         try {
             const { name, description } = req.body;
-            const skill = await Skill.create({ name, description });
+
+            const skillAlreadyExists = await Skill.findOne({
+                where: { name: name.toLowerCase() }
+            });
+
+            if (skillAlreadyExists) {
+                //tratar
+                return res.status(401).json({ message: 'SKILL ALREADY EXISTS' });
+            }
+            const skill = await Skill.create({ name: name.toLowerCase(), description });
 
             return res.status(201).json(skill);
-
         } catch (error) {
             return res.status(500).json(error);
         }
     }
-
 };
