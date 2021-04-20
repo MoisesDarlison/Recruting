@@ -14,7 +14,7 @@ app.use(express.json());
 app.use('/companies', companyRoutes);
 app.use('/candidates', CandidateRoutes);
 app.use('/signup', SignUpRoutes);
-app.use('/Opportunities', OpportunityRoutes);
+app.use('/opportunities', OpportunityRoutes);
 app.use('/skills', SkillRoutes);
 
 app.listen(PORT, () => {

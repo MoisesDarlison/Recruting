@@ -1,6 +1,6 @@
 const Candidate = require('../Models/Candidates');
 const Skill = require('../Models/Skills');
-const SkillCandidate = require('../Models/SkillsCandidate');
+const SkillCandidate = require('../Models/SkillsCandidates');
 const sequelize = require('sequelize');
 
 module.exports = {
@@ -139,7 +139,7 @@ module.exports = {
 
     async associateSkill(req, res) {
         try {
-            const { id } = req.params;
+            const { userId } = req;
             const { skill } = req.query;
 
             const skillAlreadyExists = await Skill.findOne({
@@ -155,7 +155,7 @@ module.exports = {
              *  Or can handle error only
              **/
 
-            const skill_candidate = await SkillCandidate.create({ candidateId: id, skillId: skillAlreadyExists.id });
+            const skill_candidate = await SkillCandidate.create({ candidateId: userId, skillId: skillAlreadyExists.id });
 
             return res.status(201).json(skill_candidate);
         } catch (error) {
@@ -165,7 +165,7 @@ module.exports = {
                     case "SequelizeForeignKeyConstraintError":
                         return res.status(404).json({ message: "OPPORTUNITY DOES NOT EXISTS" });
                     case "SequelizeUniqueConstraintError":
-                        return res.status(401).json({ message: "SKILL ALREADY EXISTS FOR THIS OPPORTUNITY" });
+                        return res.status(401).json({ message: "SKILL ALREADY EXISTS FOR THIS CANDIDATE" });
                     default:
                         return res.status(400).json(error);
                 }

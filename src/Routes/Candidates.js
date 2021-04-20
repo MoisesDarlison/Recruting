@@ -6,7 +6,7 @@ routes.get('/', verifyJWT, index);
 routes.get('/:id', verifyJWT, filter);
 routes.put('/:id', verifyJWT, update);
 routes.delete('/:id', verifyJWT, destroy);
-routes.post('/:id', verifyJWT, associateSkill);
+routes.post('/increment', verifyJWT, associateSkill);
 routes.post('/', create);
 
 module.exports = routes;
